@@ -1,0 +1,20 @@
+{
+  "manver" : "1",
+  "project" : "KUnit",
+  "description" : "KUnit is a simple unit testing framework for FANUC's KAREL programming language. KUnit provides useful assertions and test output feedback via the web browser.",
+  "version" : "1.0.0",
+  "license" : "MIT",
+  "author" : "onerobotics",
+  "source" : [
+    "src/kunit.kl"
+  ],
+  "includes" : [
+    "include"
+  ],
+  "tests" : [
+    "src/test/test_kunit.kl"
+  ],
+  "depends" : [
+    "Strings"
+  ]
+}

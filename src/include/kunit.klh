@@ -1,7 +1,10 @@
+%ifndef kunit_h
+%define kunit_h
+
 ROUTINE kunit_test(name : STRING; result : BOOLEAN)                  FROM kunit
 ROUTINE kunit_done                                                   FROM kunit
 
-ROUTINE kunit_assert(b : BOOLEAN)                          : BOOLEAN FROM kunit
+ROUTINE kunit_assert(actual : BOOLEAN)                     : BOOLEAN FROM kunit
 ROUTINE kunit_eq_int(expected : INTEGER; actual : INTEGER) : BOOLEAN FROM kunit
 ROUTINE kunit_eq_pip(fname : STRING)                       : BOOLEAN FROM kunit
 ROUTINE kunit_eq_pos(expected : XYZWPR; actual : XYZWPR)   : BOOLEAN FROM kunit
@@ -14,3 +17,5 @@ ROUTINE kunit_un_r(actual : REAL)                          : BOOLEAN FROM kunit
 ROUTINE k_init_pipe                                                  FROM kunit
 ROUTINE k_close_pipe                                                 FROM kunit
 ROUTINE kunit_pipe(s : STRING)                                       FROM kunit
+
+%endif --kunit_h

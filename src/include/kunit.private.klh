@@ -1,0 +1,11 @@
+%ifndef kunit_private_h
+%define kunit_private_h
+
+ROUTINE kunit_init FROM kunit
+ROUTINE kunit_fail(name : STRING) FROM kunit
+ROUTINE kunit_pass FROM kunit
+ROUTINE kunit_output FROM kunit
+ROUTINE kunit_spawn(filename : STRING) FROM kunit
+ROUTINE kunit_clean FROM kunit
+
+%endif --kunit_private_h

@@ -1,7 +1,0 @@
-anon
-
-bin
-prompt
-mput bin/*.pc
-put vendor/strings.pc
-quit
