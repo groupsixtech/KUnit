@@ -239,6 +239,72 @@ ROUTINE kunit_eq_r
     ENDIF
   END kunit_eq_r
 
+-- Public: Assert that two arrays are equal
+--
+-- expected - The expected array
+-- actual   - The actual array
+--
+-- Examples
+--
+-- arr1 : ARRAY[5] OF REAL
+-- arr2 : ARRAY[5] OF REAL
+-- arr3 : ARRAY[5] OF REAL
+--   kunit_eq_int(arr1, arr2)
+--   # => true
+--
+--   kunit_eq_int(arr1, arr3)
+--   # => False
+
+ROUTINE kunit_eq_arr
+  VAR
+    i : INTEGER
+    ok : BOOLEAN
+  BEGIN
+    ok = TRUE
+
+    assrtn_count = assrtn_count + 1
+
+    -- check array sizes. If expected has more values
+    -- than the actual array throw an error
+    IF ARRAY_LEN(expected) > ARRAY_LEN(actual) THEN
+      error_msg = 'Comparison array is not the same size.' &
+                  + 'as test array.'
+      RETURN(false)
+    ENDIF
+
+    --actual test array should be equal to or greater than expected
+    -- loop through arrays and check values
+    FOR i = 1 TO ARRAY_LEN(actual) DO
+      -- disregard comparision if item is outside of expected
+      -- shape
+      IF (i <= ARRAY_LEN(expected)) THEN
+        -- handle uninitialized
+        IF UNINIT(actual[i]) THEN
+          error_msg = 'Expected ' + r_to_s(expected[i]) + ' but got UNINIT'
+          RETURN(false)
+        ENDIF
+
+        IF expected[i] <> actual[i] THEN
+          ok = FALSE
+          GO TO skiploop
+        ENDIF
+
+      ENDIF
+    ENDFOR
+
+    skiploop::
+
+    IF ok THEN
+      RETURN(true)
+    ELSE
+      error_msg = 'Expected ' + r_to_s(expected[i]) + ' but got ' + r_to_s(actual[i]) + &
+                  ', on index ' + i_to_s(i) + ' of array.'
+      RETURN(false)
+    ENDIF
+  END kunit_eq_arr
+
+
+
 -- Public: Assert that two STRINGs are equal
 --
 -- expected - The expected STRING value
@@ -300,6 +366,86 @@ ROUTINE kunit_eq_pos
       RETURN(false)
     ENDIF
   END kunit_eq_pos
+
+ROUTINE kunit_eq_cfg
+  VAR
+    cfg_data : CONFIG
+    ac_config : STRING[25]
+  BEGIN
+    assrtn_count = assrtn_count + 1
+
+    IF UNINIT(expected) THEN
+      error_msg = 'Expected was UNINIT'
+      RETURN(false)
+    ENDIF
+
+    IF UNINIT(actual) THEN
+      error_msg = 'Actual was UNINIT'
+      RETURN(false)
+    ENDIF
+
+    -- check that expected string is a CONFIG data type
+    CNV_STR_CONF(expected, cfg_data, status)
+    IF status<>0 THEN
+        error_msg = 'Expected is not a Configuration string'
+        RETURN(false)
+    ENDIF
+
+    --convert actual config to a string
+    CNV_CONF_STR(actual.config_data, ac_config)
+
+    -- compare the two strings
+    IF ac_config=expected THEN
+      RETURN(true)
+    ELSE
+      error_msg = 'Expected "' + expected + '" but got "' + ac_config + '"' 
+      RETURN(false)
+    ENDIF
+
+
+  END kunit_eq_cfg
+
+-- Public: Assert that two JOINTPOS positions are equal
+--
+-- expected - The expected JOINTPOS value
+-- actual   - The actual JOINTPOS value
+--
+-- Returns true if poses are equal,
+-- false otherwise
+
+ROUTINE kunit_eq_jnt
+  VAR
+    s_expected : STRING[50]
+    s_actual : STRING[50]
+  BEGIN
+
+    assrtn_count = assrtn_count + 1
+
+    -- convert jointpos to a string
+    s_expected = joint_to_s(expected, ',')
+    s_actual = joint_to_s(actual, ',')
+
+    IF UNINIT(s_expected) THEN
+      error_msg = 'Expected was UNINIT'
+      RETURN(false)
+    ENDIF
+
+    IF UNINIT(s_actual) THEN
+      error_msg = 'Actual was UNINIT'
+      RETURN(false)
+    ENDIF
+
+    IF s_expected=s_actual THEN
+      RETURN(true)
+    ELSE
+      error_msg = 'Expected: ' + chr(13) &
+        + 'jpos: ' + s_expected + chr(13) &
+        + 'Actual: ' + chr(13) &
+        + 'jpos: ' + s_actual
+      RETURN(false)
+    ENDIF
+
+  END kunit_eq_jnt
 
 -- Public: Opens the KUNIT pipe for reading and writing
 --
