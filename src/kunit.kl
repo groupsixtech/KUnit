@@ -303,6 +303,36 @@ ROUTINE kunit_eq_arr
     ENDIF
   END kunit_eq_arr
 
+ROUTINE kunit_eq_2d
+  VAR
+    i,j : INTEGER
+    b : BOOLEAN
+  BEGIN
+    IF ARRAY_LEN(expected) > ARRAY_LEN(actual) THEN
+      error_msg = 'rows are not the same size'
+      RETURN(false)
+    ENDIF
+
+    IF ARRAY_LEN(e_rows) > ARRAY_LEN(a_rows) THEN
+      error_msg = 'row placeholders need to be the same size'
+      RETURN(false)
+    ENDIF
+
+    FOR i=1 TO ARRAY_LEN(actual) DO
+      FOR j=1 TO ARRAY_LEN(a_rows) DO
+        e_rows[j] = expected[i,j]
+        a_rows[j] = actual[i,j]
+      ENDFOR
+
+      b = kunit_eq_arr(e_rows, a_rows)
+      IF b = FALSE THEN
+        error_msg = 'Row ' + i_to_s(i) + 'is not equal.'
+        RETURN(false)
+      ENDIF
+    ENDFOR
+
+    RETURN(true)
+  END kunit_eq_2d
 
 
 -- Public: Assert that two STRINGs are equal
