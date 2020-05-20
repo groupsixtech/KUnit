@@ -234,8 +234,15 @@ ROUTINE kunit_eq_r
     IF expected=actual THEN
       RETURN(true)
     ELSE
-      error_msg = 'Expected ' + r_to_s(expected) + ' but got ' + r_to_s(actual) 
-      RETURN(false)
+      --convert to string and check as truncated decimal 
+      --(ie. 0.75 != 0.750) will cause false condition
+      IF r_to_s(expected) = r_to_s(actual) THEN
+        RETURN(true)
+      ELSE
+        error_msg = 'Expected ' + r_to_s(expected) + ' but got ' + r_to_s(actual) 
+        RETURN(false)
+      ENDIF
+
     ENDIF
   END kunit_eq_r
 
@@ -284,7 +291,9 @@ ROUTINE kunit_eq_arr
           RETURN(false)
         ENDIF
 
-        IF expected[i] <> actual[i] THEN
+        -- need to convert to string and evaluate to handle truncated
+        -- decimal i.e. 0.75 != 0.750
+        IF r_to_s(expected[i]) <> r_to_s(actual[i]) THEN
           ok = FALSE
           GO TO skiploop
         ENDIF
