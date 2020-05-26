@@ -394,8 +394,7 @@ ROUTINE kunit_eq_pos
       RETURN(false)
     ENDIF
 
-    IF (expected.x=actual.x) AND (expected.y=actual.y) AND (expected.z=actual.z) AND &
-       (expected.w=actual.w) AND (expected.p=actual.p) AND (expected.r=actual.r) THEN
+    IF (expected >=< actual) THEN
       RETURN(true)
     ELSE
       error_msg = 'Expected: ' + chr(13) &
