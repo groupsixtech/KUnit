@@ -12,7 +12,7 @@
     "include"
   ],
   "tests" : [
-    "src/test/test_kunit.kl"
+    "test/test_kunit.kl"
   ],
   "depends" : [
     "Strings"
