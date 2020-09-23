@@ -8,6 +8,8 @@ ROUTINE kunit_assert(actual : BOOLEAN)                     : BOOLEAN FROM kunit
 ROUTINE kunit_eq_int(expected : INTEGER; actual : INTEGER) : BOOLEAN FROM kunit
 ROUTINE kunit_eq_pip(fname : STRING)                       : BOOLEAN FROM kunit
 ROUTINE kunit_eq_pos(expected : XYZWPR; actual : XYZWPR)   : BOOLEAN FROM kunit
+ROUTINE kunit_eq_vec(expected : VECTOR; actual : VECTOR)   : BOOLEAN FROM kunit
+ROUTINE kunit_eq_vrl(expected : VECTOR; actual : VECTOR; epsilon : REAL)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_cfg(expected : STRING; actual : XYZWPR)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_jnt(expected : JOINTPOS; actual : JOINTPOS)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_r(expected : REAL; actual : REAL)         : BOOLEAN FROM kunit

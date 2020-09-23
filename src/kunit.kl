@@ -427,6 +427,51 @@ ROUTINE kunit_eq_pos
     ENDIF
   END kunit_eq_pos
 
+ROUTINE kunit_eq_vec
+  BEGIN
+    assrtn_count = assrtn_count + 1
+    IF UNINIT(expected) OR UNINIT(actual) THEN
+      error_msg = 'Expected and/or actual are UNINIT'
+      RETURN(false)
+    ENDIF
+
+    IF vec_to_s(expected, ',') = vec_to_s(actual, ',') THEN
+      RETURN(TRUE)
+    ELSE
+      error_msg = 'Expected ' + vec_to_s(expected, ',') + & 
+                  ' but got ' + vec_to_s(actual, ',')
+      RETURN(false)
+    ENDIF
+
+  END kunit_eq_vec
+
+
+ROUTINE kunit_eq_vrl
+  VAR
+    ok : BOOLEAN
+  BEGIN
+    assrtn_count = assrtn_count + 1
+    IF UNINIT(expected) OR UNINIT(actual) THEN
+      error_msg = 'Expected and/or actual are UNINIT'
+      RETURN(false)
+    ENDIF
+
+    --evaluate relationally to error EPSILON
+    ok = TRUE
+    IF ABS(expected.x-actual.x) > epsilon THEN ok = FALSE; ENDIF
+    IF ABS(expected.y-actual.y) > epsilon THEN ok = FALSE; ENDIF
+    IF ABS(expected.z-actual.z) > epsilon THEN ok = FALSE; ENDIF
+
+    IF ok THEN
+      RETURN(TRUE)
+    ELSE
+      error_msg = 'Expected ' + vec_to_s(expected, ',') + & 
+                  ' but got ' + vec_to_s(actual, ',')
+      RETURN(false)
+    ENDIF
+
+  END kunit_eq_vrl
+
 ROUTINE kunit_eq_cfg
   VAR
     cfg_data : CONFIG
