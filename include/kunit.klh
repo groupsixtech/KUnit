@@ -15,6 +15,7 @@ ROUTINE kunit_eq_jnt(expected : JOINTPOS; actual : JOINTPOS)   : BOOLEAN FROM ku
 ROUTINE kunit_eq_r(expected : REAL; actual : REAL)         : BOOLEAN FROM kunit
 ROUTINE kunit_eq_arr(expected : ARRAY[*] OF REAL; actual : ARRAY[*] OF REAL)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_2d(e_rows, a_rows : ARRAY[*] OF REAL; expected, actual : ARRAY[*,*] OF REAL)  : BOOLEAN FROM kunit
+ROUTINE kunit_eq_arb(actual : ARRAY[*] OF BOOLEAN)   : BOOLEAN FROM kunit
 --(TO ADD) ROUTINE kunit_eq_ari(expected : ARRAY[*] OF INTEGER; actual : ARRAY[*] OF INTEGER)   : BOOLEAN FROM kunit
 --(TO ADD) ROUTINE kunit_eq_ars(expected : ARRAY[*] OF STRING; actual : ARRAY[*] OF STRING)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_str(expected : STRING; actual : STRING)   : BOOLEAN FROM kunit

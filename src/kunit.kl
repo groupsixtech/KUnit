@@ -343,6 +343,22 @@ ROUTINE kunit_eq_2d
     RETURN(true)
   END kunit_eq_2d
 
+  ROUTINE kunit_eq_arb
+  VAR
+    i : INTEGER
+    ok : BOOLEAN
+  BEGIN
+    ok = TRUE
+    FOR i = 1 TO ARRAY_LEN(actual) DO
+      IF ok THEN
+        ok = kunit_assert(actual[i])
+      ENDIF
+    ENDFOR
+
+    RETURN(ok)
+    
+  END kunit_eq_arb
+
 
 -- Public: Assert that two STRINGs are equal
 --
