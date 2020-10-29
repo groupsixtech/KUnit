@@ -392,19 +392,21 @@ ROUTINE kunit_eq_str
     --handle if actual is the same as expected but has
     --characters at the end cut off.
     IF STR_LEN(expected) > STR_LEN(actual) THEN
-      error_msg = error_msg + 'Expected string is larger than actual string.' + chr(13)
+      error_msg = 'Exp: "'+expected+'" is larger than Act: "'+actual+ '"' + chr(13)
+      --error_msg = error_msg + ' Exp: '+i_to_s(STR_LEN(expected))+' characters vs Act: '+i_to_s(STR_LEN(actual))+ ' characters' + chr(13)
     ENDIF
 
     FOR i=1 TO STR_LEN(actual) DO
       IF i > STR_LEN(expected) THEN
-        error_msg = 'Actual string is larger than expected string.'
+        error_msg = 'Act: "'+actual+'" is larger than Exp: "'+expected+ '"' + chr(13)
+        --error_msg = error_msg + ' Act: '+i_to_s(STR_LEN(actual))+' characters vs Exp: '+i_to_s(STR_LEN(expected))+ ' characters' + chr(13)
         RETURN(false)
       ENDIF
       --compare character by character
       IF (SUB_STR(actual,i,1) <> SUB_STR(expected,i,1)) THEN
-        error_msg = error_msg + 'Strings dont match at char: ' + i_to_s(i) + chr(13) + &
-                    'actual: ' +  SUB_STR(actual,i,1) + &
-                    'expected: ' +  SUB_STR(expected,i,1) ;
+        error_msg = error_msg + ' Strings dont match at char: ' + i_to_s(i) + chr(13) + &
+                    'actual: ' +  SUB_STR(actual,i,1) + chr(13) + &
+                    'expected: ' +  SUB_STR(expected,i,1) + chr(13) ;
         RETURN(false)
       ENDIF
     ENDFOR
