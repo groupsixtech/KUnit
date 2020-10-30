@@ -404,9 +404,7 @@ ROUTINE kunit_eq_str
       ENDIF
       --compare character by character
       IF (SUB_STR(actual,i,1) <> SUB_STR(expected,i,1)) THEN
-        error_msg = error_msg + ' Strings dont match at char: ' + i_to_s(i) + chr(13) + &
-                    'actual: ' +  SUB_STR(actual,i,1) + chr(13) + &
-                    'expected: ' +  SUB_STR(expected,i,1) + chr(13) ;
+        error_msg = actual + ' <> ' + expected + ' at char ' + i_to_s(i) + chr(13) ;
         RETURN(false)
       ENDIF
     ENDFOR
