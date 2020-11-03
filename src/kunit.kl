@@ -542,21 +542,17 @@ ROUTINE kunit_eq_jnt
 
     assrtn_count = assrtn_count + 1
 
-    -- convert jointpos to a string
-    s_expected = joint_to_s(expected, ',')
-    s_actual = joint_to_s(actual, ',')
-
-    IF UNINIT(s_expected) THEN
+    IF UNINIT(expected) THEN
       error_msg = 'Expected was UNINIT'
       RETURN(false)
     ENDIF
 
-    IF UNINIT(s_actual) THEN
+    IF UNINIT(actual) THEN
       error_msg = 'Actual was UNINIT'
       RETURN(false)
     ENDIF
 
-    IF s_expected=s_actual THEN
+    IF expected>=<actual THEN
       RETURN(true)
     ELSE
       error_msg = 'Expected: ' + chr(13) &
