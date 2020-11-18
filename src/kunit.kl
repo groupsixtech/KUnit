@@ -435,10 +435,8 @@ ROUTINE kunit_eq_pos
     IF (expected >=< actual) THEN
       RETURN(true)
     ELSE
-      error_msg = 'Expected: ' + chr(13) &
-        + p_to_s(expected) + chr(13) &
-        + 'Actual: ' + chr(13) &
-        + p_to_s(actual)
+      error_msg = 'Expected: ' + pose_to_s(expected, ',') &
+        + ' Actual: ' + pose_to_s(actual, ',')
       RETURN(false)
     ENDIF
   END kunit_eq_pos
