@@ -553,10 +553,8 @@ ROUTINE kunit_eq_jnt
     IF expected>=<actual THEN
       RETURN(true)
     ELSE
-      error_msg = 'Expected: ' + chr(13) &
-        + 'jpos: ' + s_expected + chr(13) &
-        + 'Actual: ' + chr(13) &
-        + 'jpos: ' + s_actual
+      error_msg = 'Expected: ' + joint_to_s(expected, ',') &
+        + ' Actual: ' + joint_to_s(actual, ',')
       RETURN(false)
     ENDIF
 
