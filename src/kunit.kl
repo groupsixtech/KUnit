@@ -312,6 +312,44 @@ ROUTINE kunit_eq_arr
     ENDIF
   END kunit_eq_arr
 
+ROUTINE kunit_eq_ari
+  VAR
+    i : INTEGER
+  BEGIN
+
+    assrtn_count = assrtn_count + 1
+
+    -- check array sizes. If expected has more values
+    -- than the actual array throw an error
+    IF ARRAY_LEN(expected) > ARRAY_LEN(actual) THEN
+      error_msg = 'Comparison array is not the same size.' &
+                  + 'as test array.'
+      RETURN(false)
+    ENDIF
+
+    i = 0
+    REPEAT
+      i = i + 1
+      IF (i <= ARRAY_LEN(expected)) THEN
+        -- handle uninitialized
+        IF UNINIT(actual[i]) THEN
+          error_msg = 'Expected ' + i_to_s(expected[i]) + ' but got UNINIT'
+          RETURN(false)
+        ENDIF
+      ENDIF
+
+    UNTIL((expected[i] <> actual[i]) OR (i = ARRAY_LEN(actual)) )
+
+    IF expected[i] = actual[i] THEN
+      RETURN(true)
+    ELSE
+      error_msg = 'Expected ' + i_to_s(expected[i]) + ' but got ' + i_to_s(actual[i]) + &
+                  ', on index ' + i_to_s(i) + ' of array.'
+      RETURN(false)
+    ENDIF
+    
+  END kunit_eq_ari
+
 ROUTINE kunit_eq_2d
   VAR
     i,j : INTEGER
