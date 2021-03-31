@@ -440,6 +440,47 @@ ROUTINE kunit_eq_arv
   END kunit_eq_arv
 
 
+ROUTINE kunit_eq_arp
+  VAR
+    i : INTEGER
+    ok : BOOLEAN
+  BEGIN
+    assrtn_count = assrtn_count + 1
+
+    -- check array sizes. If expected has more values
+    -- than the actual array throw an error
+    IF ARRAY_LEN(expected) > ARRAY_LEN(actual) THEN
+      error_msg = 'Comparison array is not the same size.' &
+                  + 'as test array.'
+      RETURN(false)
+    ENDIF
+
+    i = 0
+    ok = TRUE
+    REPEAT
+      i = i + 1
+      IF (i <= ARRAY_LEN(expected)) THEN
+        -- handle uninitialized
+        IF UNINIT(actual[i]) THEN
+          error_msg = 'Expected ' + pose_to_s(expected[i], ',') + ' but got UNINIT'
+          RETURN(false)
+        ENDIF
+      ENDIF
+
+      IF NOT (expected[i] >=< actual[i]) THEN ok = FALSE; ENDIF
+    UNTIL((NOT ok) OR (i = ARRAY_LEN(expected)) )
+
+    IF ok THEN
+      RETURN(true)
+    ELSE
+      error_msg = 'Expected ' + pose_to_s(expected[i], ',') + ' but got ' + pose_to_s(actual[i], ',') + &
+                  ' on index ' + i_to_s(i) + ' of array.'
+      RETURN(false)
+    ENDIF
+
+  END kunit_eq_arp
+
+
 -- Public: Assert that two STRINGs are equal
 --
 -- expected - The expected STRING value

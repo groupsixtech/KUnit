@@ -18,6 +18,7 @@ ROUTINE kunit_eq_2d(e_rows, a_rows : ARRAY[*] OF REAL; expected, actual : ARRAY[
 ROUTINE kunit_eq_arb(actual : ARRAY[*] OF BOOLEAN)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_ari(expected : ARRAY[*] OF INTEGER; actual : ARRAY[*] OF INTEGER)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_arv(expected : ARRAY[*] OF VECTOR; actual : ARRAY[*] OF VECTOR; epsilon : REAL)   : BOOLEAN FROM kunit
+ROUTINE kunit_eq_arp(expected : ARRAY[*] OF XYZWPR; actual : ARRAY[*] OF XYZWPR) : BOOLEAN FROM kunit
 --(TO ADD) ROUTINE kunit_eq_ars(expected : ARRAY[*] OF STRING; actual : ARRAY[*] OF STRING)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_str(expected : STRING; actual : STRING)   : BOOLEAN FROM kunit
 ROUTINE kunit_un_int(actual : INTEGER)                     : BOOLEAN FROM kunit
