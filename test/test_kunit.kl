@@ -2,8 +2,8 @@ PROGRAM test_kunit
 %NOLOCKGROUP
 %UNINITVARS
   
-%INCLUDE kunit.klt
-%INCLUDE kunit.klh
+%include kunit.klt
+%include kunit.klh
 -- test private routines
 ROUTINE kunit_fail(name : STRING) FROM kunit
 ROUTINE kunit_pass                FROM kunit

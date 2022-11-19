@@ -2,11 +2,11 @@ PROGRAM kunit
 %NOLOCKGROUP
 %UNINITVARS
 
-%INCLUDE kunit.klt
+%include kunit.klt
 
-%INCLUDE kunit.private.klh
-%INCLUDE kunit.klh
-%INCLUDE strings.klh
+%include kunit.private.klh
+%include kunit.klh
+%include strings.klh
 
 BEGIN
   kunit_init
