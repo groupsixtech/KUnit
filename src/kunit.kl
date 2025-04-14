@@ -246,6 +246,28 @@ ROUTINE kunit_eq_r
     ENDIF
   END kunit_eq_r
 
+ROUTINE kunit_eq_rep
+  VAR
+    ok : BOOLEAN
+  BEGIN
+    assrtn_count = assrtn_count + 1
+    IF UNINIT(expected) OR UNINIT(actual) THEN
+      error_msg = 'Expected and/or actual are UNINIT'
+      RETURN(false)
+    ENDIF
+
+    ok = TRUE
+    IF ABS(expected-actual) > epsilon THEN ok = FALSE; ENDIF
+
+    IF ok THEN
+      RETURN(TRUE)
+    ELSE
+      error_msg = 'Expected ' + r_to_s(expected) + ' but got ' + r_to_s(actual)
+      RETURN(false)
+    ENDIF
+
+  END kunit_eq_rep
+
 -- Public: Assert that two arrays are equal
 --
 -- expected - The expected array

@@ -13,6 +13,7 @@ ROUTINE kunit_eq_vrl(expected : VECTOR; actual : VECTOR; epsilon : REAL)   : BOO
 ROUTINE kunit_eq_cfg(expected : STRING; actual : XYZWPR)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_jnt(expected : JOINTPOS; actual : JOINTPOS)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_r(expected : REAL; actual : REAL)         : BOOLEAN FROM kunit
+ROUTINE kunit_eq_rep(expected : REAL; actual : REAL; epsilon : REAL)         : BOOLEAN FROM kunit
 ROUTINE kunit_eq_arr(expected : ARRAY[*] OF REAL; actual : ARRAY[*] OF REAL)   : BOOLEAN FROM kunit
 ROUTINE kunit_eq_2d(e_rows, a_rows : ARRAY[*] OF REAL; expected, actual : ARRAY[*,*] OF REAL)  : BOOLEAN FROM kunit
 ROUTINE kunit_eq_arb(actual : ARRAY[*] OF BOOLEAN)   : BOOLEAN FROM kunit
